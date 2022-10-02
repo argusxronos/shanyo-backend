@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
   if (
     !(existingUser && bcrypt.compareSync(password, existingUser.passwordHash))
   ) {
-    res.status(400).send("User or password is wrong!");
+    return res.status(400).send("User or password is wrong!");
   }
 
   let token;
