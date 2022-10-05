@@ -66,13 +66,15 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log(req);
+
   let { email, password } = req.body;
   let existingUser;
 
   const secretWord = process.env.secretJwtWord;
   try {
     existingUser = await User.findOne({
-      email: email,
+      email: email.toLowerCase(),
     });
   } catch (err) {
     return res.status(503).send("Login Service is not available!");
@@ -81,6 +83,7 @@ router.post("/login", async (req, res) => {
   if (
     !(existingUser && bcrypt.compareSync(password, existingUser.passwordHash))
   ) {
+    console.log("Logging user failed.");
     return res.status(400).send("User or password is wrong!");
   }
 
