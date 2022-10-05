@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  console.log(req);
+  console.log(req); // ???
 
   let { email, password } = req.body;
   let existingUser;
@@ -81,7 +81,8 @@ router.post("/login", async (req, res) => {
   }
 
   if (
-    !(existingUser && bcrypt.compareSync(password, existingUser.passwordHash))
+    existingUser === false ||
+    bcrypt.compareSync(password, existingUser.passwordHash) === false
   ) {
     console.log("Logging user failed.");
     return res.status(400).send("User or password is wrong!");
