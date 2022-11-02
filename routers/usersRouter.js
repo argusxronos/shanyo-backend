@@ -66,8 +66,6 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  console.log(req); // ???
-
   let { email, password } = req.body;
   let existingUser;
 
